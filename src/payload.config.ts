@@ -37,15 +37,17 @@ export default buildConfig({
     },
   }),
   sharp,
-  plugins: [
-    vercelBlobStorage({
-      collections: {
-        media: {
-          prefix: 'media',
-        },
-      },
-      clientUploads: true,
-      token: process.env.BLOB_READ_WRITE_TOKEN,
-    }),
-  ],
+  plugins: process.env.BLOB_READ_WRITE_TOKEN
+    ? [
+        vercelBlobStorage({
+          collections: {
+            media: {
+              prefix: 'media',
+            },
+          },
+          clientUploads: true,
+          token: process.env.BLOB_READ_WRITE_TOKEN,
+        }),
+      ]
+    : [],
 })

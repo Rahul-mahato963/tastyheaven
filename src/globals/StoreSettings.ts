@@ -1,9 +1,10 @@
 import type { GlobalConfig } from 'payload'
+import { adminOnly } from '../access/admin'
 
 export const StoreSettings: GlobalConfig = {
   slug: 'store-settings',
   label: 'Store settings',
-  access: { read: () => true },
+  access: { read: () => true, update: adminOnly },
   admin: { group: 'Store' },
   fields: [
     {

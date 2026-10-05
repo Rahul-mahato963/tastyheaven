@@ -1,8 +1,14 @@
 import type { CollectionConfig } from 'payload'
+import { adminOnly } from '../access/admin'
 
 export const MenuItems: CollectionConfig = {
   slug: 'menu-items',
-  access: { read: () => true },
+  access: {
+    read: () => true,
+    create: adminOnly,
+    update: adminOnly,
+    delete: adminOnly,
+  },
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'restaurant', 'price', 'isPopular', 'isAvailable'],

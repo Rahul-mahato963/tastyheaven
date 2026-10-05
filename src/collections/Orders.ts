@@ -1,12 +1,13 @@
 import type { CollectionConfig } from 'payload'
+import { adminOnly } from '../access/admin'
 
 export const Orders: CollectionConfig = {
   slug: 'orders',
   access: {
     create: () => true,
-    read: ({ req }) => Boolean(req.user),
-    update: ({ req }) => Boolean(req.user),
-    delete: ({ req }) => Boolean(req.user),
+    read: adminOnly,
+    update: adminOnly,
+    delete: adminOnly,
   },
   admin: {
     useAsTitle: 'customerName',
