@@ -48,8 +48,8 @@ export default async function HomePage() {
   <span className="text-sm font-normal">Restaurant</span>
 </Link>          <nav className="flex items-center gap-4 text-sm sm:gap-7" aria-label="Main navigation">
             <a className="hidden sm:block" href="#menu">Menu</a>
-            <Link href="/admin/collections/menu-items">Manage menu</Link>
-            <Link className="bg-[#781d1c] px-3 py-2 text-white" href="/checkout">Bag <CartCount /></Link>
+      
+            <Link className="bg-[#781d1c] px-3 py-2 text-white" href="/checkout">Bag/order <CartCount /></Link>
           </nav>
         </div>
       </header>
