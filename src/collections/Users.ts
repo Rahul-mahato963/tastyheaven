@@ -4,7 +4,7 @@ import { adminOnly, adminOrFirstUser } from '../access/admin'
 export const Users: CollectionConfig = {
   slug: 'users',
   access: {
-    admin: adminOnly,
+    admin: ({ req }) => Boolean(req.user?.role === 'admin'),
     create: adminOrFirstUser,
     read: adminOnly,
     update: adminOnly,
@@ -15,7 +15,16 @@ export const Users: CollectionConfig = {
   },
   auth: true,
   fields: [
-    // Email added by default
-    // Add more fields as needed
+    {
+      name: 'role',
+      type: 'select',
+      required: true,
+      defaultValue: 'admin',
+      saveToJWT: true,
+      options: [{ label: 'Admin', value: 'admin' }],
+      access: {
+        update: ({ req }) => Boolean(req.user?.role === 'admin'),
+      },
+    },
   ],
 }

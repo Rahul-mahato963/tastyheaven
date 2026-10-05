@@ -12,7 +12,7 @@ export const StoreSettings: GlobalConfig = {
       label: 'eSewa payment number',
       type: 'text',
       required: true,
-      defaultValue: '9800000000',
+      defaultValue: '9840553108',
       admin: { description: 'Demo placeholder. Replace with your restaurant eSewa number before accepting payments.' },
     },
   ],
