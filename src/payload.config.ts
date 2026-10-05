@@ -16,6 +16,13 @@ import { StoreSettings } from './globals/StoreSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+const blobToken = process.env.BLOB_READ_WRITE_TOKEN
+
+if (process.env.VERCEL && !blobToken) {
+  throw new Error(
+    'BLOB_READ_WRITE_TOKEN is required on Vercel. Add a Vercel Blob read-write token to the project environment variables and redeploy.',
+  )
+}
 
 export default buildConfig({
   admin: {
@@ -37,7 +44,7 @@ export default buildConfig({
     },
   }),
   sharp,
-  plugins: process.env.BLOB_READ_WRITE_TOKEN
+  plugins: blobToken
     ? [
         vercelBlobStorage({
           collections: {
@@ -46,7 +53,7 @@ export default buildConfig({
             },
           },
           clientUploads: true,
-          token: process.env.BLOB_READ_WRITE_TOKEN,
+          token: blobToken,
         }),
       ]
     : [],
