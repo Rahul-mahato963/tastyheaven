@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
+import Image from 'next/image'
 
 import config from '@/payload.config'
 import { AddToBagButton, CartCount } from '../../CartActions'
@@ -32,12 +33,18 @@ export default async function MenuItemPage({ params }: { params: Promise<{ id: s
   return <div className="min-h-screen bg-[#fbf8ef] text-[#29231e]">
     <header className="border-b border-[#e5d9c2]">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-8">
-        <Link className="font-display text-xl font-bold text-[#781d1c]" href="/">Tasty Heaven</Link>
+        <Link href="/" aria-label="Tasty Heaven home">
+          <Image src="/tasty-heaven-logo.jpg" alt="Tasty Heaven logo" width={60} height={60} className="h-14 w-14 rounded-sm object-contain" />
+        </Link>
         <Link className="bg-[#781d1c] px-3 py-2 text-sm text-white" href="/checkout">Bag <CartCount /></Link>
       </div>
     </header>
     <main className="mx-auto grid max-w-5xl gap-8 px-4 py-8 sm:grid-cols-2 sm:gap-12 sm:px-8 sm:py-14">
-      <div className="aspect-[1.1] bg-[#e8dfcf] bg-cover bg-center sm:aspect-square" style={{ backgroundImage: `url('${photo}')` }} role="img" aria-label={dish.name} />
+      <div className="grid aspect-[1.1] place-items-center overflow-hidden bg-[#e8dfcf] sm:aspect-square">
+        {photo
+          ? <img className="h-full w-full object-cover" src={photo} alt={dish.image && typeof dish.image === 'object' ? dish.image.alt || dish.name : dish.name} />
+          : <span className="text-sm text-[#766c61]">Image not available</span>}
+      </div>
       <div className="self-center">
         <Link className="text-sm text-[#766c61] underline underline-offset-4" href="/">&larr; Back to menu</Link>
         {category && <p className="mb-2 mt-8 text-xs font-bold uppercase tracking-[0.12em] text-[#a44a27]">{category}</p>}

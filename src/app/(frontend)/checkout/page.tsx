@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { getPayload } from 'payload'
+import Image from 'next/image'
 
 import config from '@/payload.config'
 import { CheckoutClient } from './CheckoutClient'
@@ -19,7 +20,9 @@ export default async function CheckoutPage() {
   return <div className="min-h-screen bg-[#fbf8ef] text-[#29231e]">
     <header className="border-b border-[#e5d9c2]">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-8">
-        <Link className="font-display text-xl font-bold text-[#781d1c]" href="/">Tasty Heaven</Link>
+        <Link href="/" aria-label="Tasty Heaven home">
+          <Image src="/tasty-heaven-logo.jpg" alt="Tasty Heaven logo" width={60} height={60} className="h-14 w-14 rounded-sm object-contain" />
+        </Link>
         <Link className="text-sm" href="/">Menu</Link>
       </div>
     </header>

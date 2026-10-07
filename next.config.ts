@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
   images: {
     localPatterns: [
       {
+        pathname: '/tasty-heaven-logo.jpg',
+      },
+      {
         pathname: '/api/media/file/**',
       },
     ],

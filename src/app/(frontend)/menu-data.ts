@@ -3,51 +3,24 @@ export type MenuItem = {
   name: string
   description?: string | null
   price: number
-  image?: { url?: string | null; alt?: string | null } | number | null
+  image?: {
+    url?: string | null
+    alt?: string | null
+    sizes?: {
+      card?: { url?: string | null } | null
+      thumbnail?: { url?: string | null } | null
+    } | null
+  } | number | null
   category?: { name?: string } | number | null
 }
 
-const photos = {
-  tea: 'photo-1571934811356-5cc061b6821f',
-  coffee: 'photo-1509042239860-f550ce710b93',
-  dumplings: 'photo-1601050690597-df0568f70950',
-  noodles: 'photo-1585032226651-759b368d7246',
-  rice: 'photo-1512058564366-18510be2db19',
-  burger: 'photo-1568901346375-23c9450c58cd',
-  sandwich: 'photo-1528735602780-2552fd46c7af',
-  fries: 'photo-1573080496219-bb080dd4f877',
-  egg: 'photo-1525351484163-7529414344d8',
-  flatbread: 'photo-1565557623262-b51c2513a641',
-  curry: 'photo-1547592180-85f173990554',
-  lassi: 'photo-1553530666-ba11a7da3888',
-  thakali: 'https://nepaltraveller.com/images/main/1606479273.sidetrackimagethakali-khana.jpg',
-  thukpa: 'https://media.mountainrocktreks.com/uploads/media/blog/local-foods-and-resturants-nepal/thukpa.jpg',
-  chickenSadheko: 'https://premsekuwa.com/storage/app/public/admin-assets/images/item/item-695290de8451f.JPG',
-  chickenChilli: 'https://kathmandukitchenandbar.com/uploads/products/45cb1cc313cd31b3c9284a4540ba7e6e.png',
-}
+export function menuImage(dish: MenuItem): string | null {
+  if (!dish.image || typeof dish.image !== 'object') return null
 
-export function menuImage(dish: MenuItem) {
-  if (dish.image && typeof dish.image === 'object' && dish.image.url) return dish.image.url
-
-  const name = dish.name.toLowerCase()
-  const image = /tea/.test(name) ? photos.tea
-    : /coffee/.test(name) ? photos.coffee
-      : /momo|samosa/.test(name) ? photos.dumplings
-        : /chowmein|noodle/.test(name) ? photos.noodles
-          : /fried rice|keema/.test(name) ? photos.rice
-            : /burger/.test(name) ? photos.burger
-              : /sandwich/.test(name) ? photos.sandwich
-                : /fries|potato/.test(name) ? photos.fries
-                  : /egg/.test(name) ? photos.egg
-                    : /paratha|roti|puri/.test(name) ? photos.flatbread
-                        : /lassi/.test(name) ? photos.lassi
-                          : /thakali|khana set/.test(name) ? photos.thakali
-                            : /thukpa/.test(name) ? photos.thukpa
-                              : /chicken sadheko|chicken sandheko/.test(name) ? photos.chickenSadheko
-                                : /chicken chilli|chilli chicken/.test(name) ? photos.chickenChilli
-                                  : photos.curry
-
-  return image.startsWith('http') ? image : `https://images.unsplash.com/${image}?auto=format&fit=crop&w=900&q=82`
+  return dish.image.sizes?.card?.url
+    || dish.image.sizes?.thumbnail?.url
+    || dish.image.url
+    || null
 }
 
 export const fallbackDishes: Array<MenuItem & { group: string }> = [
